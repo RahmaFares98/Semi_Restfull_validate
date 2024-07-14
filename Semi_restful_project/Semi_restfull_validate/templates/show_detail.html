@@ -1,0 +1,24 @@
+<!-- tvshows/templates/tvshows/show_detail.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ show.title }}</title>
+</head>
+<body>
+    <h1>{{ show.title }}</h1>
+    
+    <p><strong>Network:</strong> {{ show.network }}</p>
+    <p><strong>Release Date:</strong> {{ show.release_date }}</p>
+    <p><strong>Description:</strong> {{ show.description }}</p>
+
+    <p>
+        <a href="{% url 'show_edit' show.id %}">Edit</a> |
+        <form action="{% url 'show_delete' show.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="submit" value="Delete">
+        </form> |
+        <a href="{% url 'show_list' %}">Back to List</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Show</title>
+</head>
+<body>
+{% block content %}
+<h1>{% block title %}{% endblock %}</h1>
+<form action="/shows/create" method="POST" id="showForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Show</button>
+</form>
+<div id="errorMessages" style="color: red;"></div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#showForm').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/shows/check_unique_title/',
+            data: formData,
+            success: function(response) {
+                if (response.is_taken) {
+                    $('#errorMessages').html('<p>Title already exists. Please choose a different title.</p>');
+                } else {
+                    $('#showForm').unbind('submit').submit();
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+
+</html>
