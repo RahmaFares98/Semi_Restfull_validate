@@ -1,0 +1,46 @@
+<!-- tvshows/templates/tvshows/show_form.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% if show %} Edit Show {% else %} Add New Show {% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+</head>
+
+<body>
+    <div>
+        <h1> Edit  Show {{show.id}}</h1>
+        <div class="cont_1">
+            <form action="{%url 'show_edit' show.id %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label name="title">Show Title:</label>
+                    <input type="text" name="title" value="{{ show.title }}" required>
+                </div>
+                <div><label name="network">Network :</label>
+                    <input type="text" name="network" value="{{ show.network }}" required>
+                </div>
+                <div><label name="release_date">release_date :</label>
+                    <input type="date" name="release_date"  value="{{ show.release_date }}" required> <!--to show the past data-->
+                </div>
+                <div><label name="description">Description :</label>
+                    <input type="text" name="description"  value="{{show.description}}" required>
+                </div>
+                <button class="btnSubmit" type="submit">Update</button>
+            </form>
+        </div>
+        <a href="{% url 'show_detail' show.id %}">Go to show</a>
+
+    </div>
+</body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</html>

@@ -1,0 +1,47 @@
+<!-- tvshows/templates/tvshows/show_form.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% if show %} Edit Show {% else %} Add New Show {% endif %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+</head>
+
+<body>
+    <div>
+        <h1>Add a New Show</h1>
+        <div class="cont_1">
+            <form action="{%url 'show_new' %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label name="title">Show Title:</label>
+                    <input type="text" name="title" placeholder="title" required>
+                </div>
+                <div><label name="network">Network :</label>
+                    <input type="text" name="network" placeholder="network" required>
+                </div>
+                <div><label name="release_date">release_date :</label>
+                    <input type="date" name="release_date" placeholder="release_date" required>
+                </div>
+                <div><label name="description">Description :</label>
+                    <input type="text" name="description" placeholder="description" required>
+                </div>
+                <button class="btnSubmit" type="submit">Create </button>
+            </form>
+        </div>
+        <a href="{% url 'show_list' %}">Go Back</a>
+
+    </div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!-- tvshows/templates/tvshows/show_confirm_delete.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Confirm Deletion</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+</head>
+<body>
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete "{{ show.title }}"?</p> <!-- to confirm delete-->
+    <form action="{% url 'show_delete' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="cid" value="{{ show.id }}"> <!--to pass id hidden-->
+        <input type="submit" value="Delete">
+    </form>
+    <a href="{% url 'show_list' %}">Cancel</a>
+    </form>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+</html>
